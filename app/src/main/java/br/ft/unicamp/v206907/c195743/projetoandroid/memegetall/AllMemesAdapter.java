@@ -12,6 +12,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -27,18 +29,17 @@ import java.util.List;
 import br.ft.unicamp.v206907.c195743.projetoandroid.R;
 import br.ft.unicamp.v206907.c195743.services.Payload;
 
-public class AllMemesAdapter extends RecyclerView.Adapter {
+public class AllMemesAdapter extends RecyclerView.Adapter implements Filterable {
 
     private Context mContext;
     private List<Payload> mPayloads;
+    private List<Payload> mPayloadsFull;
     private OnItemClickListener mListener;
 
     public AllMemesAdapter(Context context, List<Payload> payloads) {
         this.mContext = context;
         this.mPayloads = payloads;
-    }
-
-    public AllMemesAdapter() {
+        mPayloadsFull = new ArrayList<>(payloads);
     }
 
     @NonNull
@@ -58,6 +59,40 @@ public class AllMemesAdapter extends RecyclerView.Adapter {
     public int getItemCount() {
         return mPayloads.size();
     }
+
+    @Override
+    public Filter getFilter() {
+        return allMemesFilter;
+    }
+
+    private Filter allMemesFilter = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            List<Payload> filteredPayload = new ArrayList<>();
+
+            if (constraint == null || constraint.length() == 0) {
+                filteredPayload.addAll(mPayloadsFull);
+            } else {
+                String filterPattern = constraint.toString().toLowerCase().trim();
+
+                for (Payload item : mPayloadsFull) {
+                    if (item.getName().toLowerCase().contains(filterPattern) || item.getTag().toLowerCase().contains(filterPattern)) {
+                        filteredPayload.add(item);
+                    }
+                }
+            }
+            FilterResults results = new FilterResults();
+            results.values = filteredPayload;
+            return results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            mPayloads.clear();
+            mPayloads.add((Payload) results.values);
+            notifyDataSetChanged();
+        }
+    };
 
     public class MemesViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnCreateContextMenuListener, MenuItem.OnMenuItemClickListener {
 

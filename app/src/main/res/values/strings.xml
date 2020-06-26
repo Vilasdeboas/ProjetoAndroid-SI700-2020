@@ -19,4 +19,10 @@
     <string name="menu_get_all">Listar Todos Memes</string>
     <string name="meme_description">Meme</string>
     <string name="update_btn">Atualizar</string>
+    <string name="menu_search">Pesquisar</string>
+    <string name="sign_out">Sair</string>
+    <string name="finish">Finalizar</string>
+    <string name="revoke">Revogar</string>
+    <string name="sign_in_screen">Tela de Sign In</string>
+    <string name="disconnected">Desconectado</string>
 </resources>

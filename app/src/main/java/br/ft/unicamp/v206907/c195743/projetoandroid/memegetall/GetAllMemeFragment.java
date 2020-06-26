@@ -13,11 +13,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.SearchView;
 import android.widget.Toast;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
@@ -143,7 +149,7 @@ public class GetAllMemeFragment extends Fragment implements AllMemesAdapter.OnIt
                         public void onFailure(@NonNull Exception e) {
                             e.printStackTrace();
                             Log.i("file-err", e.getMessage());
-                            Toast.makeText(getContext(), "Falhou!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(), "Falha ao salvar o arquivo", Toast.LENGTH_SHORT).show();
                         }
                     });
                 }
@@ -151,7 +157,7 @@ public class GetAllMemeFragment extends Fragment implements AllMemesAdapter.OnIt
                 @Override
                 public void onFailure(@NonNull Exception e) {
                     e.printStackTrace();
-                    Toast.makeText(getContext(), "Falha", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Falha ao baixar o arquivo", Toast.LENGTH_SHORT).show();
                     Log.i("file-err", e.getMessage());
                 }
             });
@@ -205,5 +211,26 @@ public class GetAllMemeFragment extends Fragment implements AllMemesAdapter.OnIt
     @Override
     public void onPause() {
         super.onPause();
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        inflater.inflate(R.menu.get_all_memes_menu, menu);
+
+        MenuItem searchItem = menu.findItem(R.id.action_search);
+        SearchView searchView = (SearchView)searchItem.getActionView();
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                mAdapter.getFilter().filter(newText);
+                return false;
+            }
+        });
     }
 }

@@ -1,12 +1,14 @@
 package br.ft.unicamp.v206907.c195743.projetoandroid;
 
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
-import android.view.View;
 import android.view.Menu;
+import android.widget.Toast;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -16,7 +18,13 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import br.ft.unicamp.v206907.c195743.services.SignInActivity;
+import br.ft.unicamp.v206907.c195743.services.SignInFragment;
+
 public class MainActivity extends AppCompatActivity {
+
+    private FirebaseAuth mFirebaseAuth;
+    private FirebaseUser mFirebaseUser;
 
     private AppBarConfiguration mAppBarConfiguration;
 
@@ -60,5 +68,22 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
+    }
+
+    @Override
+    public void onStart(){
+        super.onStart();
+
+        /* Logando */
+        mFirebaseAuth = FirebaseAuth.getInstance();
+        mFirebaseUser = mFirebaseAuth.getCurrentUser();
+
+        if (mFirebaseUser == null){
+            startActivity(new Intent(this, SignInActivity.class));
+
+        } else {
+            Toast.makeText(this, "Olá: "+mFirebaseUser.getDisplayName(),
+                    Toast.LENGTH_LONG).show();
+        }
     }
 }
