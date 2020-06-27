@@ -169,6 +169,17 @@ public class GetAllMemeFragment extends Fragment implements AllMemesAdapter.OnIt
                     Log.i("file-err", e.getMessage());
                 }
             });
+            try {
+                boolean deleted = localFile.delete();
+                while (!deleted){
+                    deleted = localFile.delete();
+                }
+                Log.i("deleted-file", "deleted");
+                Log.i("deleted-file", "exists: "+localFile.exists());
+            } catch (Exception e) {
+                e.printStackTrace();
+                Log.i("deleted-file", e.getMessage());
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
