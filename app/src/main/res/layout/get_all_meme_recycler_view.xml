@@ -16,7 +16,8 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="8dp"
             android:textColor="@android:color/black"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:text="@string/name_txtview"/>
 
         <TextView
             android:id="@+id/description"
@@ -25,7 +26,8 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="8dp"
             android:textColor="@android:color/black"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:text="@string/description_txtview"/>
 
         <TextView
             android:id="@+id/tag"
@@ -34,7 +36,8 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="8dp"
             android:textColor="@android:color/black"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:text="@string/tag_txtview"/>
 
         <ImageView
             android:id="@+id/meme"
@@ -42,7 +45,26 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:contentDescription="@string/meme_description" />
+        <!--<LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="fill_horizontal"
+            android:orientation="horizontal">
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Click 1"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Click 2"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Click 3"/>
+        </LinearLayout>-->
     </LinearLayout>
+
 
 
 </androidx.cardview.widget.CardView>

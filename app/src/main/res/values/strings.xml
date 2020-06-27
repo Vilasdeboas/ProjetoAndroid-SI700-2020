@@ -25,4 +25,7 @@
     <string name="revoke">Revogar</string>
     <string name="sign_in_screen">Tela de Sign In</string>
     <string name="disconnected">Desconectado</string>
+    <string name="tag_txtview">"Tag: "</string>
+    <string name="description_txtview">"Descrição: "</string>
+    <string name="name_txtview">"Nome: "</string>
 </resources>

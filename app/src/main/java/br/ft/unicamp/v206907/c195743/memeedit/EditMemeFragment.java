@@ -8,8 +8,11 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -145,7 +148,19 @@ public class EditMemeFragment extends Fragment {
                     insertNewImage(filename, payload);
                     removeOldImage(payload.getUri());
                 } else {
-                    dbRef.child(mKey).setValue(payload);
+                    dbRef.child(mKey).setValue(payload).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Toast.makeText(getContext(), "Atualizado!", Toast.LENGTH_SHORT).show();
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
+                                    navController.navigate(R.id.nav_get_all);
+                                }
+                            }, 1000);
+                        }
+                    });
                 }
             }
         } catch (Exception e) {

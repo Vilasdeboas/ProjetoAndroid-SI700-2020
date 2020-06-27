@@ -123,7 +123,7 @@ public class AllMemesAdapter extends RecyclerView.Adapter implements Filterable 
         @Override
         public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
             menu.setHeaderTitle("Select Action");
-            MenuItem share = menu.add(Menu.NONE, 1, 1, "Share");
+            MenuItem share = menu.add(Menu.NONE, 1, 1, "Share").setIcon(R.drawable.ic_search);
             MenuItem edit = menu.add(Menu.NONE, 2, 2, "Edit");
             MenuItem delete = menu.add(Menu.NONE, 3, 3, "Delete");
 
@@ -161,9 +161,9 @@ public class AllMemesAdapter extends RecyclerView.Adapter implements Filterable 
         }
 
         void bind(Payload payload) {
-            this.name.setText("Nome: " + payload.getName());
-            this.description.setText("Descrição: " + payload.getDescription());
-            this.tag.setText("Tag: " + payload.getTag());
+            this.name.append(payload.getName());
+            this.description.append(payload.getDescription());
+            this.tag.append(payload.getTag());
             Picasso.get().load(payload.getUri()).placeholder(R.mipmap.ic_launcher).into(this.meme);
         }
     }
