@@ -1,6 +1,9 @@
 package br.ft.unicamp.v206907.c195743.projetoandroid;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -22,6 +25,7 @@ import br.ft.unicamp.v206907.c195743.services.SignInActivity;
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
+    private ServiceReceiver serviceReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,9 +74,28 @@ public class MainActivity extends AppCompatActivity {
 
         if (mFirebaseUser == null){
             startActivity(new Intent(this, SignInActivity.class));
-
         } else {
             Log.i("dev-msg", "User logged: "+mFirebaseUser.getEmail());
+        }
+
+        receiveService();
+    }
+
+    private void receiveService(){
+        /* Registrar o BroadCastReceiver */
+        serviceReceiver = new ServiceReceiver();
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction("REDIRECTING");
+        registerReceiver(serviceReceiver, intentFilter);
+    }
+
+    private class ServiceReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            NavController navController = Navigation.findNavController(MainActivity.this, R.id.nav_host_fragment);
+            navController.navigate(R.id.nav_insert);
+
         }
     }
 }
