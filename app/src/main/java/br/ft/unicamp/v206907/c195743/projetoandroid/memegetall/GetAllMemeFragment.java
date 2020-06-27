@@ -44,6 +44,7 @@ import java.util.List;
 
 import br.ft.unicamp.v206907.c195743.projetoandroid.R;
 import br.ft.unicamp.v206907.c195743.services.Payload;
+import br.ft.unicamp.v206907.c195743.services.SignInActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -70,7 +71,7 @@ public class GetAllMemeFragment extends Fragment implements AllMemesAdapter.OnIt
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         if (lview == null) {
@@ -79,6 +80,10 @@ public class GetAllMemeFragment extends Fragment implements AllMemesAdapter.OnIt
 
         mFirebaseAuth = FirebaseAuth.getInstance();
         mFirebaseUser = mFirebaseAuth.getCurrentUser();
+
+        if (mFirebaseUser == null){
+            startActivity(new Intent(getContext(), SignInActivity.class));
+        }
 
         mStorageReference = FirebaseStorage.getInstance().getReference(BASE_URL+"/"+mFirebaseUser.getUid());
 

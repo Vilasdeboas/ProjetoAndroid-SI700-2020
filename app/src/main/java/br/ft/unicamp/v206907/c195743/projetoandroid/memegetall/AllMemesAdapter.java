@@ -1,6 +1,7 @@
 package br.ft.unicamp.v206907.c195743.projetoandroid.memegetall;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -18,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.view.menu.MenuView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
@@ -161,9 +163,10 @@ public class AllMemesAdapter extends RecyclerView.Adapter implements Filterable 
         }
 
         void bind(Payload payload) {
-            this.name.append(payload.getName());
-            this.description.append(payload.getDescription());
-            this.tag.append(payload.getTag()+";");
+            this.name.setText(payload.getName());
+            this.description.setText(payload.getDescription());
+            String hashtag = itemView.getResources().getString(R.string.hashtag, payload.getTag());
+            this.tag.setText(hashtag);
             Picasso.get().load(payload.getUri()).placeholder(R.mipmap.ic_launcher).into(this.meme);
         }
     }

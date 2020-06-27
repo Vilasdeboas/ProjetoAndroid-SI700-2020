@@ -1,14 +1,9 @@
 package br.ft.unicamp.v206907.c195743.projetoandroid;
 
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -23,7 +18,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import br.ft.unicamp.v206907.c195743.services.SignInActivity;
-import br.ft.unicamp.v206907.c195743.services.SignInFragment;
 
 public class MainActivity extends AppCompatActivity {
 
