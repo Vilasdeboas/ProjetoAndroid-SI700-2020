@@ -13,10 +13,10 @@
 
     <string name="home_second">Home Second</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="menu_insert">Enviar Meme</string>
     <string name="menu_get_all">Listar Todos Memes</string>
+    <string name="menu_edit">Editar Meme</string>
     <string name="meme_description">Meme</string>
     <string name="update_btn">Atualizar</string>
     <string name="menu_search">Pesquisar</string>
@@ -35,4 +35,5 @@
     <string name="btn_select_image">Selecionar Imagem</string>
     <string name="btn_save">Salvar</string>
     <string name="nice_meme">Meme maneiro</string>
+    <string name="btn_update">Atualizar</string>
 </resources>

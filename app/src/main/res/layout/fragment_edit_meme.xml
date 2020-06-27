@@ -8,68 +8,98 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginBottom="10dp">
+        android:layout_marginBottom="10dp"
+        android:orientation="vertical">
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/name"
-            android:textStyle="bold|italic"/>
+            android:textColor="@color/colorPrimary"
+            android:textStyle="bold|italic" />
+
         <EditText
             android:id="@+id/name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/name"/>
+            android:textColor="@color/colorPrimaryDark"
+            android:hint="@string/name"
+            android:inputType="text" />
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@color/colorPrimary"
             android:text="@string/description"
-            android:textStyle="bold|italic"/>
+            android:textStyle="bold|italic" />
+
         <EditText
             android:id="@+id/description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/description"/>
+            android:textColor="@color/colorPrimaryDark"
+            android:hint="@string/description"
+            android:inputType="text" />
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@color/colorPrimary"
             android:text="@string/tag"
-            android:textStyle="bold|italic"/>
+            android:textStyle="bold|italic" />
+
         <EditText
             android:id="@+id/tag"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/tag"/>
+            android:hint="@string/tag"
+            android:inputType="text" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+
         <TextView
+            android:id="@+id/selected_meme_text"
+            android:visibility="invisible"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@color/colorPrimary"
             android:text="@string/selected_image"
-            android:textStyle="bold|italic"/>
+            android:textAlignment="center"
+            android:textStyle="bold|italic" />
+
         <ImageView
             android:id="@+id/selected_meme"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
+            android:layout_height="350dp"
             android:contentDescription="@string/meme_description" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:gravity="center|bottom">
+
         <Button
             android:id="@+id/select_meme"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:text="@string/btn_select_image"/>
-    </LinearLayout>
+            android:text="@string/btn_select_image"
+            android:textAlignment="center" />
 
-    <Button
-        android:id="@+id/update"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAlignment="center"
-        android:text="@string/update_btn"/>
+        <Button
+            android:id="@+id/btn_update"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/btn_update"
+            android:textAlignment="center" />
+    </LinearLayout>
 
 
 </LinearLayout>

@@ -71,7 +71,7 @@ public class InsertMemeFragment extends Fragment {
             lview = inflater.inflate(R.layout.fragment_insert_meme, container, false);
         }
 
-        initializeLayoutItems();
+        initialize();
 
         botao.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,7 +81,8 @@ public class InsertMemeFragment extends Fragment {
                 String description_text = description.getText().toString().trim();
                 if (name_text.equals("") || tag_text.equals("")) {
                     Toast.makeText(getContext(), "Nome e tag não podem ser vazios", Toast.LENGTH_SHORT).show();
-                } else {
+                }
+                else {
                     if (mUploadTask != null && mUploadTask.isInProgress()) {
                         Toast.makeText(v.getContext(), "Upload está em progresso!", Toast.LENGTH_SHORT).show();
                     } else {
@@ -101,12 +102,12 @@ public class InsertMemeFragment extends Fragment {
         return lview;
     }
 
-    private void initializeLayoutItems() {
+    private void initialize() {
         name = lview.findViewById(R.id.name);
         description = lview.findViewById(R.id.description);
         tag = lview.findViewById(R.id.tag);
         selected_meme = lview.findViewById(R.id.selected_meme);
-        botao = lview.findViewById(R.id.botao);
+        botao = lview.findViewById(R.id.btn_save);
         select_meme = lview.findViewById(R.id.select_meme);
         selected_meme_text = lview.findViewById(R.id.selected_meme_text);
         mFirebaseAuth = FirebaseAuth.getInstance();

@@ -10,7 +10,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-import androidx.navigation.fragment.NavHostFragment;
 
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -20,6 +19,7 @@ import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -48,6 +48,7 @@ public class EditMemeFragment extends Fragment {
 
     private static final int PICK_IMAGE_REQUEST = 1;
     private View lview;
+    private TextView selected_meme_text;
     private EditText name;
     private EditText description;
     private EditText tag;
@@ -61,7 +62,6 @@ public class EditMemeFragment extends Fragment {
     private FirebaseStorage mFirebaseStorage;
     private StorageReference mStorageReference;
     private String extension;
-    private String newUri;
     private UploadTask uploadTask;
     private String BASE_URL = "projeto_final/meme_inc";
     private FirebaseAuth mFirebaseAuth;
@@ -122,6 +122,8 @@ public class EditMemeFragment extends Fragment {
                     mUri = payload.getUri();
                     extension = payload.getExtension();
                     Picasso.get().load(payload.getUri()).placeholder(R.mipmap.ic_launcher).into(selected_meme);
+                    selected_meme.setBackgroundResource(R.drawable.generic_border);
+                    selected_meme_text.setVisibility(View.VISIBLE);
                 } catch (Exception e) {
                     e.printStackTrace();
                     Toast.makeText(getContext(), "Err.: " + e.getMessage(), Toast.LENGTH_SHORT).show();
@@ -215,11 +217,12 @@ public class EditMemeFragment extends Fragment {
         dbRef = FirebaseDatabase.getInstance().getReference(BASE_URL+"/"+mFirebaseUser.getUid());
         mStorageReference = FirebaseStorage.getInstance().getReference(BASE_URL+"/"+mFirebaseUser.getUid());
         mFirebaseStorage = FirebaseStorage.getInstance();
+        selected_meme_text = lview.findViewById(R.id.selected_meme_text);
         name = lview.findViewById(R.id.name);
         description = lview.findViewById(R.id.description);
         tag = lview.findViewById(R.id.tag);
         selected_meme = lview.findViewById(R.id.selected_meme);
-        update = lview.findViewById(R.id.update);
+        update = lview.findViewById(R.id.btn_update);
         select_meme = lview.findViewById(R.id.select_meme);
         selected_meme_uri = null;
     }

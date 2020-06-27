@@ -53,6 +53,6 @@
     <fragment
         android:id="@+id/editMemeFragment"
         android:name="br.ft.unicamp.v206907.c195743.memeedit.EditMemeFragment"
-        android:label="fragment_edit_meme"
+        android:label="@string/menu_edit"
         tools:layout="@layout/fragment_edit_meme" />
 </navigation>
