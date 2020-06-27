@@ -21,6 +21,8 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -59,6 +61,8 @@ public class EditMemeFragment extends Fragment {
     private String newUri;
     private UploadTask uploadTask;
     private String BASE_URL = "projeto_final/meme_inc";
+    private FirebaseAuth mFirebaseAuth;
+    private FirebaseUser mFirebaseUser;
 
     public EditMemeFragment() {
         // Required empty public constructor
@@ -151,7 +155,7 @@ public class EditMemeFragment extends Fragment {
     }
 
     private void insertNewImage(String filename, final Payload payload) {
-        final StorageReference fileReference = mStorageReference.child("uploads").child(filename);
+        final StorageReference fileReference = mStorageReference.child("uploads"+"/"+mFirebaseUser.getUid()).child(filename);
         uploadTask = fileReference.putFile(selected_meme_uri);
         uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
@@ -190,9 +194,11 @@ public class EditMemeFragment extends Fragment {
     }
 
     private void initialize() {
+        mFirebaseAuth = FirebaseAuth.getInstance();
+        mFirebaseUser = mFirebaseAuth.getCurrentUser();
         mKey = getArguments().getString("key");
-        dbRef = FirebaseDatabase.getInstance().getReference(BASE_URL);
-        mStorageReference = FirebaseStorage.getInstance().getReference(BASE_URL);
+        dbRef = FirebaseDatabase.getInstance().getReference(BASE_URL+"/"+mFirebaseUser.getUid());
+        mStorageReference = FirebaseStorage.getInstance().getReference(BASE_URL+"/"+mFirebaseUser.getUid());
         mFirebaseStorage = FirebaseStorage.getInstance();
         name = lview.findViewById(R.id.name);
         description = lview.findViewById(R.id.description);

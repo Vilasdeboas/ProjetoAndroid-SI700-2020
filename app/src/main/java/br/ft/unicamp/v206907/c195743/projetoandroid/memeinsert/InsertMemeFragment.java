@@ -21,6 +21,8 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -52,6 +54,8 @@ public class InsertMemeFragment extends Fragment {
     private DatabaseReference mFirebaseDatabaseReference;
     private StorageReference mStorageReference;
     private StorageTask mUploadTask;
+    private FirebaseAuth mFirebaseAuth;
+    private FirebaseUser mFirebaseUser;
 
     public InsertMemeFragment() {
         // Required empty public constructor
@@ -95,8 +99,11 @@ public class InsertMemeFragment extends Fragment {
         selected_meme = lview.findViewById(R.id.selected_meme);
         botao = lview.findViewById(R.id.botao);
         select_meme = lview.findViewById(R.id.select_meme);
-        mStorageReference = FirebaseStorage.getInstance().getReference(BASE_URL);
-        mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference(BASE_URL);
+        mFirebaseAuth = FirebaseAuth.getInstance();
+        mFirebaseUser = mFirebaseAuth.getCurrentUser();
+        Toast.makeText(getContext(), mFirebaseUser.getUid(), Toast.LENGTH_SHORT).show();
+        mStorageReference = FirebaseStorage.getInstance().getReference(BASE_URL+"/"+mFirebaseUser.getUid());
+        mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference(BASE_URL+"/"+mFirebaseUser.getUid());
     }
 
     private void clearLayoutItems() {
@@ -113,7 +120,7 @@ public class InsertMemeFragment extends Fragment {
             final String extension = getFileExtension(selected_meme_uri);
             String filename = name.trim().replace(" ", "-").toLowerCase();
             filename = filename + "-" +mili + "." + extension;
-            final StorageReference fileReference = mStorageReference.child("uploads/" + filename);
+            final StorageReference fileReference = mStorageReference.child("uploads/"+"/"+mFirebaseUser.getUid() + filename);
             mUploadTask = fileReference.putFile(selected_meme_uri)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
@@ -122,7 +129,7 @@ public class InsertMemeFragment extends Fragment {
                                 @Override
                                 public void onSuccess(Uri uri) {
                                     Payload payload = new Payload(name, description, tag, uri.toString(), extension);
-                                    mFirebaseDatabaseReference.child(BASE_URL).push().setValue(payload);
+                                    mFirebaseDatabaseReference.child(BASE_URL+"/"+mFirebaseUser.getUid()).push().setValue(payload);
                                     Toast.makeText(getContext(), "Enviado!", Toast.LENGTH_SHORT).show();
                                     clearLayoutItems();
                                 }

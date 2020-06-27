@@ -26,6 +26,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -58,6 +60,9 @@ public class GetAllMemeFragment extends Fragment implements AllMemesAdapter.OnIt
     private List<Payload> mPayloads;
     private ProgressBar mProgressCircle;
     private String BASE_URL = "projeto_final/meme_inc";
+    private FirebaseAuth mFirebaseAuth;
+    private FirebaseUser mFirebaseUser;
+
 
     public GetAllMemeFragment() {
         // Required empty public constructor
@@ -72,7 +77,10 @@ public class GetAllMemeFragment extends Fragment implements AllMemesAdapter.OnIt
             lview = inflater.inflate(R.layout.fragment_get_all_meme, container, false);
         }
 
-        mStorageReference = FirebaseStorage.getInstance().getReference(BASE_URL);
+        mFirebaseAuth = FirebaseAuth.getInstance();
+        mFirebaseUser = mFirebaseAuth.getCurrentUser();
+
+        mStorageReference = FirebaseStorage.getInstance().getReference(BASE_URL+"/"+mFirebaseUser.getUid());
 
         mRecyclerView = lview.findViewById(R.id.get_all_meme_recycler_view);
         mProgressCircle = lview.findViewById(R.id.progress_circle);
@@ -87,7 +95,7 @@ public class GetAllMemeFragment extends Fragment implements AllMemesAdapter.OnIt
 
         mAdapter.setOnItemClickListener(GetAllMemeFragment.this);
 
-        mDatabaseRef = FirebaseDatabase.getInstance().getReference(BASE_URL);
+        mDatabaseRef = FirebaseDatabase.getInstance().getReference(BASE_URL+"/"+mFirebaseUser.getUid());
         mStorage = FirebaseStorage.getInstance();
 
         mDBListener = mDatabaseRef.addValueEventListener(new ValueEventListener() {
