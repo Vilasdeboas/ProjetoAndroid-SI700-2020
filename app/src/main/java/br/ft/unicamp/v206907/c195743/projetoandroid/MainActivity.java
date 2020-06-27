@@ -5,6 +5,9 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
@@ -24,9 +27,6 @@ import br.ft.unicamp.v206907.c195743.services.SignInFragment;
 
 public class MainActivity extends AppCompatActivity {
 
-    private FirebaseAuth mFirebaseAuth;
-    private FirebaseUser mFirebaseUser;
-
     private AppBarConfiguration mAppBarConfiguration;
 
     @Override
@@ -35,14 +35,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        /*FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });*/
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
@@ -75,12 +67,16 @@ public class MainActivity extends AppCompatActivity {
     public void onStart(){
         super.onStart();
 
+        FirebaseAuth mFirebaseAuth;
+        FirebaseUser mFirebaseUser;
+
         /* Logando */
         mFirebaseAuth = FirebaseAuth.getInstance();
         mFirebaseUser = mFirebaseAuth.getCurrentUser();
 
         if (mFirebaseUser == null){
             startActivity(new Intent(this, SignInActivity.class));
+
         } else {
             Log.i("dev-msg", "User logged: "+mFirebaseUser.getEmail());
         }
