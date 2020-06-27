@@ -3,6 +3,7 @@ package br.ft.unicamp.v206907.c195743.projetoandroid;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.widget.Toast;
 
@@ -80,10 +81,8 @@ public class MainActivity extends AppCompatActivity {
 
         if (mFirebaseUser == null){
             startActivity(new Intent(this, SignInActivity.class));
-
         } else {
-            Toast.makeText(this, "Olá: "+mFirebaseUser.getDisplayName(),
-                    Toast.LENGTH_LONG).show();
+            Log.i("dev-msg", "User logged: "+mFirebaseUser.getEmail());
         }
     }
 }

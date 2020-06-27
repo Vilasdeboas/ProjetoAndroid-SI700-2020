@@ -1,80 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".memeinsert.InsertMemeFragment"
     android:orientation="vertical"
-    android:padding="10dp">
+    android:padding="10dp"
+    tools:context=".memeinsert.InsertMemeFragment"
+    android:fitsSystemWindows="true"
+    tools:ignore="AutoFill">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="@drawable/generic_border"
-        android:layout_marginBottom="10dp">
+        android:layout_marginBottom="10dp"
+        android:orientation="vertical">
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Nome"
-            android:textStyle="bold|italic"/>
+            android:text="@string/name"
+            android:textColor="@color/colorPrimary"
+            android:textStyle="bold|italic" />
+
         <EditText
             android:id="@+id/name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Nome"/>
+            android:textColor="@color/colorPrimaryDark"
+            android:hint="@string/name"
+            android:inputType="text" />
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Descrição"
-            android:textStyle="bold|italic"/>
+            android:textColor="@color/colorPrimary"
+            android:text="@string/description"
+            android:textStyle="bold|italic" />
+
         <EditText
             android:id="@+id/description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Descrição"/>
+            android:textColor="@color/colorPrimaryDark"
+            android:hint="@string/description"
+            android:inputType="text" />
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Tag"
-            android:textStyle="bold|italic"/>
+            android:textColor="@color/colorPrimary"
+            android:text="@string/tag"
+            android:textStyle="bold|italic" />
+
         <EditText
             android:id="@+id/tag"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Tag"/>
+            android:hint="@string/tag"
+            android:inputType="text" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="@drawable/generic_border">
+        android:orientation="vertical">
+
         <TextView
+            android:id="@+id/selected_meme_text"
+            android:visibility="invisible"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Imagem Selecionada"
-            android:textStyle="bold|italic"/>
+            android:textColor="@color/colorPrimary"
+            android:text="@string/selected_image"
+            android:textAlignment="center"
+            android:textStyle="bold|italic" />
+
         <ImageView
             android:id="@+id/selected_meme"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:contentDescription="Meme" />
+            android:layout_height="350dp"
+            android:contentDescription="@string/meme_description" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:gravity="center|bottom">
+
         <Button
             android:id="@+id/select_meme"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:text="Selecionar imagem"/>
-    </LinearLayout>
+            android:text="@string/btn_select_image"
+            android:textAlignment="center" />
 
-    <Button
-        android:id="@+id/botao"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAlignment="center"
-        android:text="Enviar"/>
+        <Button
+            android:id="@+id/botao"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/btn_save"
+            android:textAlignment="center" />
+    </LinearLayout>
 
 
 </LinearLayout>

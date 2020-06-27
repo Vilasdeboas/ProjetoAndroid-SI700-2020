@@ -163,7 +163,7 @@ public class AllMemesAdapter extends RecyclerView.Adapter implements Filterable 
         void bind(Payload payload) {
             this.name.append(payload.getName());
             this.description.append(payload.getDescription());
-            this.tag.append(payload.getTag());
+            this.tag.append(payload.getTag()+";");
             Picasso.get().load(payload.getUri()).placeholder(R.mipmap.ic_launcher).into(this.meme);
         }
     }

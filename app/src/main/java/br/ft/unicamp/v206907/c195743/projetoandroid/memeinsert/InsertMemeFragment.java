@@ -17,6 +17,7 @@ import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -44,6 +45,7 @@ public class InsertMemeFragment extends Fragment {
     private static final int PICK_IMAGE_REQUEST = 1;
     private String BASE_URL = "projeto_final/meme_inc";
     private View lview;
+    private TextView selected_meme_text;
     private EditText name;
     private EditText description;
     private EditText tag;
@@ -74,10 +76,17 @@ public class InsertMemeFragment extends Fragment {
         botao.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mUploadTask != null && mUploadTask.isInProgress()) {
-                    Toast.makeText(v.getContext(), "Upload está em progresso!", Toast.LENGTH_SHORT).show();
+                String name_text = name.getText().toString().trim();
+                String tag_text = tag.getText().toString().trim();
+                String description_text = description.getText().toString().trim();
+                if (name_text.equals("") || tag_text.equals("")) {
+                    Toast.makeText(getContext(), "Nome e tag não podem ser vazios", Toast.LENGTH_SHORT).show();
                 } else {
-                    insertMeme(name.getText().toString(), description.getText().toString(), tag.getText().toString(), System.currentTimeMillis());
+                    if (mUploadTask != null && mUploadTask.isInProgress()) {
+                        Toast.makeText(v.getContext(), "Upload está em progresso!", Toast.LENGTH_SHORT).show();
+                    } else {
+                        insertMeme(name_text, description_text, tag_text, System.currentTimeMillis());
+                    }
                 }
             }
         });
@@ -99,11 +108,11 @@ public class InsertMemeFragment extends Fragment {
         selected_meme = lview.findViewById(R.id.selected_meme);
         botao = lview.findViewById(R.id.botao);
         select_meme = lview.findViewById(R.id.select_meme);
+        selected_meme_text = lview.findViewById(R.id.selected_meme_text);
         mFirebaseAuth = FirebaseAuth.getInstance();
         mFirebaseUser = mFirebaseAuth.getCurrentUser();
-        Toast.makeText(getContext(), mFirebaseUser.getUid(), Toast.LENGTH_SHORT).show();
-        mStorageReference = FirebaseStorage.getInstance().getReference(BASE_URL+"/"+mFirebaseUser.getUid());
-        mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference(BASE_URL+"/"+mFirebaseUser.getUid());
+        mStorageReference = FirebaseStorage.getInstance().getReference(BASE_URL + "/" + mFirebaseUser.getUid());
+        mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference(BASE_URL + "/" + mFirebaseUser.getUid());
     }
 
     private void clearLayoutItems() {
@@ -111,6 +120,8 @@ public class InsertMemeFragment extends Fragment {
         description.setText("");
         tag.setText("");
         selected_meme.setImageResource(0);
+        selected_meme.setBackgroundResource(0);
+        selected_meme_text.setVisibility(View.INVISIBLE);
     }
 
     private void insertMeme(final String name, final String description, final String tag, final long mili) {
@@ -119,8 +130,8 @@ public class InsertMemeFragment extends Fragment {
 
             final String extension = getFileExtension(selected_meme_uri);
             String filename = name.trim().replace(" ", "-").toLowerCase();
-            filename = filename + "-" +mili + "." + extension;
-            final StorageReference fileReference = mStorageReference.child("uploads/"+"/"+mFirebaseUser.getUid() + filename);
+            filename = filename + "-" + mili + "." + extension;
+            final StorageReference fileReference = mStorageReference.child("uploads/" + "/" + mFirebaseUser.getUid() + filename);
             mUploadTask = fileReference.putFile(selected_meme_uri)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
@@ -129,7 +140,7 @@ public class InsertMemeFragment extends Fragment {
                                 @Override
                                 public void onSuccess(Uri uri) {
                                     Payload payload = new Payload(name, description, tag, uri.toString(), extension);
-                                    mFirebaseDatabaseReference.child(BASE_URL+"/"+mFirebaseUser.getUid()).push().setValue(payload);
+                                    mFirebaseDatabaseReference.child(BASE_URL + "/" + mFirebaseUser.getUid()).push().setValue(payload);
                                     Toast.makeText(getContext(), "Enviado!", Toast.LENGTH_SHORT).show();
                                     clearLayoutItems();
                                 }
@@ -162,6 +173,8 @@ public class InsertMemeFragment extends Fragment {
             selected_meme_uri = data.getData();
 
             Picasso.get().load(selected_meme_uri).into(selected_meme);
+            selected_meme.setBackgroundResource(R.drawable.generic_border);
+            selected_meme_text.setVisibility(View.VISIBLE);
         }
     }
 

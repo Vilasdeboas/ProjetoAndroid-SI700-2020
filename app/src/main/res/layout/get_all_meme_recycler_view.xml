@@ -1,12 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp">
+    android:layout_gravity="center"
+    android:background="@color/colorPrimary"
+    android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/name_txtview"
+            android:textColor="@color/colorPrimary"
+            android:background="@color/colorHolder"
+            android:textSize="20sp" />
+
+        <ImageView
+            android:id="@+id/meme"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:contentDescription="@string/meme_description"
+            android:background="@color/colorHolder"/>
+
+        <TextView
+            android:id="@+id/description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="8dp"
+            android:text="@string/description_txtview"
+            android:textColor="@color/colorHolder"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/tag"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="8dp"
+            android:text="@string/tag_txtview"
+            android:textColor="@color/colorHashtag"
+            android:textSize="20sp" />
+
+    <!--<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:layout_margin="10dp"
+    app:cardBackgroundColor="@color/colorPrimary"
+    app:cardCornerRadius="1dp"
+    app:cardElevation="4dp"
+    app:cardUseCompatPadding="true">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
         android:orientation="vertical">
 
         <TextView
@@ -15,29 +69,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="8dp"
+            android:text="@string/name_txtview"
             android:textColor="@android:color/black"
-            android:textSize="20sp"
-            android:text="@string/name_txtview"/>
-
-        <TextView
-            android:id="@+id/description"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="8dp"
-            android:textColor="@android:color/black"
-            android:textSize="20sp"
-            android:text="@string/description_txtview"/>
-
-        <TextView
-            android:id="@+id/tag"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="8dp"
-            android:textColor="@android:color/black"
-            android:textSize="20sp"
-            android:text="@string/tag_txtview"/>
+            android:textSize="20sp" />
 
         <ImageView
             android:id="@+id/meme"
@@ -45,26 +79,27 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:contentDescription="@string/meme_description" />
-        <!--<LinearLayout
+
+        <TextView
+            android:id="@+id/description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="fill_horizontal"
-            android:orientation="horizontal">
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Click 1"/>
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Click 2"/>
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Click 3"/>
-        </LinearLayout>-->
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="8dp"
+            android:text="@string/description_txtview"
+            android:textColor="@android:color/black"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/tag"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="8dp"
+            android:text="@string/tag_txtview"
+            android:textColor="@android:color/black"
+            android:textSize="20sp" />
     </LinearLayout>
+</androidx.cardview.widget.CardView>-->
 
-
-
-</androidx.cardview.widget.CardView>
+</LinearLayout>
