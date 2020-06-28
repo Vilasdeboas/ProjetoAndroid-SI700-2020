@@ -7,10 +7,14 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.squareup.picasso.Picasso;
 
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -20,12 +24,15 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import org.w3c.dom.Text;
+
 import br.ft.unicamp.v206907.c195743.services.SignInActivity;
 
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
-    private ServiceReceiver serviceReceiver;
+    FirebaseAuth mFirebaseAuth;
+    FirebaseUser mFirebaseUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,9 +72,6 @@ public class MainActivity extends AppCompatActivity {
     public void onStart(){
         super.onStart();
 
-        FirebaseAuth mFirebaseAuth;
-        FirebaseUser mFirebaseUser;
-
         /* Logando */
         mFirebaseAuth = FirebaseAuth.getInstance();
         mFirebaseUser = mFirebaseAuth.getCurrentUser();
@@ -82,6 +86,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void receiveService(){
+        ServiceReceiver serviceReceiver;
+
         /* Registrar o BroadCastReceiver */
         serviceReceiver = new ServiceReceiver();
         IntentFilter intentFilter = new IntentFilter();
