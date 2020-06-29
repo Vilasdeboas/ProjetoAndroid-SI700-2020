@@ -1,6 +1,4 @@
-package br.ft.unicamp.v206907.c195743.services;
-
-import android.net.Uri;
+package br.ft.unicamp.v206907.c195743.projetoandroid.services;
 
 import com.google.firebase.database.Exclude;
 

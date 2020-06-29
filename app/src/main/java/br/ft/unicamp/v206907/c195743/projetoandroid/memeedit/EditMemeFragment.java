@@ -1,4 +1,4 @@
-package br.ft.unicamp.v206907.c195743.memeedit;
+package br.ft.unicamp.v206907.c195743.projetoandroid.memeedit;
 
 import android.content.ContentResolver;
 import android.content.Intent;
@@ -37,8 +37,8 @@ import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
 import br.ft.unicamp.v206907.c195743.projetoandroid.R;
-import br.ft.unicamp.v206907.c195743.services.Payload;
-import br.ft.unicamp.v206907.c195743.services.SignInActivity;
+import br.ft.unicamp.v206907.c195743.projetoandroid.services.Payload;
+import br.ft.unicamp.v206907.c195743.projetoandroid.services.SignInActivity;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -168,13 +168,6 @@ public class EditMemeFragment extends Fragment {
                         @Override
                         public void onSuccess(Void aVoid) {
                             Toast.makeText(getContext(), "Atualizado!", Toast.LENGTH_SHORT).show();
-                            new Handler().postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-                                    NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
-                                    navController.navigate(R.id.nav_get_all);
-                                }
-                            }, 1000);
                         }
                     });
                 }

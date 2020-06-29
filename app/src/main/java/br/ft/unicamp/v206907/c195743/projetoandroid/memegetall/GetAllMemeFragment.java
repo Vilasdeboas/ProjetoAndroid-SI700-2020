@@ -15,18 +15,12 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.SearchView;
 import android.widget.Toast;
 
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -46,8 +40,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.ft.unicamp.v206907.c195743.projetoandroid.R;
-import br.ft.unicamp.v206907.c195743.services.Payload;
-import br.ft.unicamp.v206907.c195743.services.SignInActivity;
+import br.ft.unicamp.v206907.c195743.projetoandroid.services.Payload;
+import br.ft.unicamp.v206907.c195743.projetoandroid.services.SignInActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -87,25 +81,6 @@ public class GetAllMemeFragment extends Fragment implements AllMemesAdapter.OnIt
         if (mFirebaseUser == null) {
             startActivity(new Intent(getContext(), SignInActivity.class));
         }
-
-        /*search_field = lview.findViewById(R.id.search_field);
-        search_field.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                mAdapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mAdapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                filter(s.toString().toLowerCase());
-                mAdapter.notifyDataSetChanged();
-            }
-        });*/
 
         mStorageReference = FirebaseStorage.getInstance().getReference(BASE_URL + "/" + mFirebaseUser.getUid());
 
@@ -152,22 +127,9 @@ public class GetAllMemeFragment extends Fragment implements AllMemesAdapter.OnIt
         return lview;
     }
 
-    /*private void filter(String text) {
-        List<Payload> filteredList = new ArrayList<>();
-
-        for (Payload item : mPayloads) {
-            if (item.getName().toLowerCase().contains(text) || item.getTag().toLowerCase().contains(text)) {
-                filteredList.add(item);
-            }
-        }
-
-        mAdapter.filterList(filteredList);
-        mAdapter.notifyDataSetChanged();
-    }*/
-
     @Override
     public void onItemClick(int position) {
-        //Toast.makeText(getContext(), "Normal click at position " + position, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), mPayloads.get(position).getName(), Toast.LENGTH_SHORT).show();
     }
 
     @Override

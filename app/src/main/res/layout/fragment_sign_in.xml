@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:weightSum="4"
-    tools:context="br.ft.unicamp.v206907.c195743.services.SignInFragment">
+    tools:context=".services.SignInFragment">
 
     <LinearLayout
         android:layout_width="match_parent"

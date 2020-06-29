@@ -14,7 +14,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="br.ft.unicamp.v206907.c195743.services.SignInActivity" />
+        <activity android:name=".services.SignInActivity" />
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"

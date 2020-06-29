@@ -1,35 +1,24 @@
 package br.ft.unicamp.v206907.c195743.projetoandroid.memegetall;
 
 import android.content.Context;
-import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-import android.media.Image;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Filter;
-import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.view.menu.MenuView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Target;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import br.ft.unicamp.v206907.c195743.projetoandroid.R;
-import br.ft.unicamp.v206907.c195743.services.Payload;
+import br.ft.unicamp.v206907.c195743.projetoandroid.services.Payload;
 
 public class AllMemesAdapter extends RecyclerView.Adapter {
 
@@ -60,12 +49,6 @@ public class AllMemesAdapter extends RecyclerView.Adapter {
     public int getItemCount() {
         return mPayloads.size();
     }
-
-    public void filterList(List<Payload> filteredList){
-        mPayloads = filteredList;
-        notifyDataSetChanged();
-    }
-
 
     public class MemesViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnCreateContextMenuListener, MenuItem.OnMenuItemClickListener {
 

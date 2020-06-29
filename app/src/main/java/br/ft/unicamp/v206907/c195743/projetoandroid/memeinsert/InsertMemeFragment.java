@@ -9,7 +9,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,8 +32,8 @@ import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
 import br.ft.unicamp.v206907.c195743.projetoandroid.R;
-import br.ft.unicamp.v206907.c195743.services.Payload;
-import br.ft.unicamp.v206907.c195743.services.SignInActivity;
+import br.ft.unicamp.v206907.c195743.projetoandroid.services.Payload;
+import br.ft.unicamp.v206907.c195743.projetoandroid.services.SignInActivity;
 
 import static android.app.Activity.RESULT_OK;
 

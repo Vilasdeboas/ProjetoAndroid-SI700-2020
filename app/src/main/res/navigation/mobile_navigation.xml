@@ -3,25 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_home">
+    app:startDestination="@+id/nav_get_all">
 
-    <fragment
-        android:id="@+id/nav_home"
-        android:name="br.ft.unicamp.v206907.c195743.projetoandroid.ui.home.HomeFragment"
-        android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home"/>
-
-    <fragment
-        android:id="@+id/nav_gallery"
-        android:name="br.ft.unicamp.v206907.c195743.projetoandroid.ui.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
-
-    <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="br.ft.unicamp.v206907.c195743.projetoandroid.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
     <fragment
         android:id="@+id/nav_insert"
         android:name="br.ft.unicamp.v206907.c195743.projetoandroid.memeinsert.InsertMemeFragment"
@@ -34,12 +17,12 @@
         tools:layout="@layout/fragment_get_all_meme" />
     <fragment
         android:id="@+id/editMemeFragment"
-        android:name="br.ft.unicamp.v206907.c195743.memeedit.EditMemeFragment"
+        android:name="br.ft.unicamp.v206907.c195743.projetoandroid.memeedit.EditMemeFragment"
         android:label="@string/menu_edit"
         tools:layout="@layout/fragment_edit_meme" />
     <fragment
         android:id="@+id/signInFragment"
-        android:name="br.ft.unicamp.v206907.c195743.services.SignInFragment"
+        android:name="br.ft.unicamp.v206907.c195743.projetoandroid.services.SignInFragment"
         android:label="fragment_sign_in"
         tools:layout="@layout/fragment_sign_in" />
 </navigation>

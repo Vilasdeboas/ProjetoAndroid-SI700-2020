@@ -1,4 +1,4 @@
-package br.ft.unicamp.v206907.c195743.services;
+package br.ft.unicamp.v206907.c195743.projetoandroid.services;
 
 import android.content.Intent;
 

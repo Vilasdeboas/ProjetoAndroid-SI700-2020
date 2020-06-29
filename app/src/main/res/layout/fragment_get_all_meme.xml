@@ -7,14 +7,6 @@
     android:orientation="vertical"
     tools:context=".memegetall.GetAllMemeFragment">
 
-    <!--<EditText
-        android:id="@+id/search_field"
-        android:textColor="@color/colorHolder"
-        android:backgroundTint="@color/colorHolder"
-        android:layout_margin="16dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>-->
-
     <ProgressBar
         android:id="@+id/progress_circle"
         android:layout_width="wrap_content"
