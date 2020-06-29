@@ -11,6 +11,8 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -18,6 +20,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.SearchView;
 import android.widget.Toast;
@@ -63,7 +66,7 @@ public class GetAllMemeFragment extends Fragment implements AllMemesAdapter.OnIt
     private String BASE_URL = "projeto_final/meme_inc";
     private FirebaseAuth mFirebaseAuth;
     private FirebaseUser mFirebaseUser;
-
+    private EditText search_field;
 
     public GetAllMemeFragment() {
         // Required empty public constructor
@@ -81,11 +84,30 @@ public class GetAllMemeFragment extends Fragment implements AllMemesAdapter.OnIt
         mFirebaseAuth = FirebaseAuth.getInstance();
         mFirebaseUser = mFirebaseAuth.getCurrentUser();
 
-        if (mFirebaseUser == null){
+        if (mFirebaseUser == null) {
             startActivity(new Intent(getContext(), SignInActivity.class));
         }
 
-        mStorageReference = FirebaseStorage.getInstance().getReference(BASE_URL+"/"+mFirebaseUser.getUid());
+        /*search_field = lview.findViewById(R.id.search_field);
+        search_field.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                mAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                mAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                filter(s.toString().toLowerCase());
+                mAdapter.notifyDataSetChanged();
+            }
+        });*/
+
+        mStorageReference = FirebaseStorage.getInstance().getReference(BASE_URL + "/" + mFirebaseUser.getUid());
 
         mRecyclerView = lview.findViewById(R.id.get_all_meme_recycler_view);
         mProgressCircle = lview.findViewById(R.id.progress_circle);
@@ -100,7 +122,7 @@ public class GetAllMemeFragment extends Fragment implements AllMemesAdapter.OnIt
 
         mAdapter.setOnItemClickListener(GetAllMemeFragment.this);
 
-        mDatabaseRef = FirebaseDatabase.getInstance().getReference(BASE_URL+"/"+mFirebaseUser.getUid());
+        mDatabaseRef = FirebaseDatabase.getInstance().getReference(BASE_URL + "/" + mFirebaseUser.getUid());
         mStorage = FirebaseStorage.getInstance();
 
         mDBListener = mDatabaseRef.addValueEventListener(new ValueEventListener() {
@@ -130,9 +152,22 @@ public class GetAllMemeFragment extends Fragment implements AllMemesAdapter.OnIt
         return lview;
     }
 
+    /*private void filter(String text) {
+        List<Payload> filteredList = new ArrayList<>();
+
+        for (Payload item : mPayloads) {
+            if (item.getName().toLowerCase().contains(text) || item.getTag().toLowerCase().contains(text)) {
+                filteredList.add(item);
+            }
+        }
+
+        mAdapter.filterList(filteredList);
+        mAdapter.notifyDataSetChanged();
+    }*/
+
     @Override
     public void onItemClick(int position) {
-        Toast.makeText(getContext(), "Normal click at position " + position, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getContext(), "Normal click at position " + position, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -176,11 +211,11 @@ public class GetAllMemeFragment extends Fragment implements AllMemesAdapter.OnIt
             });
             try {
                 boolean deleted = localFile.delete();
-                while (!deleted){
+                while (!deleted) {
                     deleted = localFile.delete();
                 }
                 Log.i("deleted-file", "deleted");
-                Log.i("deleted-file", "exists: "+localFile.exists());
+                Log.i("deleted-file", "exists: " + localFile.exists());
             } catch (Exception e) {
                 e.printStackTrace();
                 Log.i("deleted-file", e.getMessage());
@@ -221,6 +256,7 @@ public class GetAllMemeFragment extends Fragment implements AllMemesAdapter.OnIt
         });
     }
 
+
     @Override
     public void onDestroy() {
         super.onDestroy();
@@ -235,26 +271,5 @@ public class GetAllMemeFragment extends Fragment implements AllMemesAdapter.OnIt
     @Override
     public void onPause() {
         super.onPause();
-    }
-
-    @Override
-    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        inflater.inflate(R.menu.get_all_memes_menu, menu);
-
-        MenuItem searchItem = menu.findItem(R.id.action_search);
-        SearchView searchView = (SearchView)searchItem.getActionView();
-
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                mAdapter.getFilter().filter(newText);
-                return false;
-            }
-        });
     }
 }

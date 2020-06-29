@@ -5,7 +5,7 @@
     <color name="colorAccent">#03DAC5</color>-->
     <color name="colorPrimary">#3A273A</color>
     <color name="colorPrimaryDark">#1F1119</color>
-    <color name="colorAccent">#EFEFEF</color>
+    <color name="colorAccent">#3A273A</color>
     <color name="colorBackground">#555555</color>
     <color name="colorHolder">#EFEFEF</color>
     <color name="colorPostHolder">#FFFFFF</color>

@@ -34,6 +34,7 @@ import com.squareup.picasso.Picasso;
 
 import br.ft.unicamp.v206907.c195743.projetoandroid.R;
 import br.ft.unicamp.v206907.c195743.services.Payload;
+import br.ft.unicamp.v206907.c195743.services.SignInActivity;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -69,6 +70,13 @@ public class InsertMemeFragment extends Fragment {
                              Bundle savedInstanceState) {
         if (lview == null) {
             lview = inflater.inflate(R.layout.fragment_insert_meme, container, false);
+        }
+
+        mFirebaseAuth = FirebaseAuth.getInstance();
+        mFirebaseUser = mFirebaseAuth.getCurrentUser();
+
+        if (mFirebaseUser == null) {
+            startActivity(new Intent(getContext(), SignInActivity.class));
         }
 
         initialize();
@@ -110,8 +118,6 @@ public class InsertMemeFragment extends Fragment {
         botao = lview.findViewById(R.id.btn_save);
         select_meme = lview.findViewById(R.id.select_meme);
         selected_meme_text = lview.findViewById(R.id.selected_meme_text);
-        mFirebaseAuth = FirebaseAuth.getInstance();
-        mFirebaseUser = mFirebaseAuth.getCurrentUser();
         mStorageReference = FirebaseStorage.getInstance().getReference(BASE_URL + "/" + mFirebaseUser.getUid());
         mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference(BASE_URL + "/" + mFirebaseUser.getUid());
     }

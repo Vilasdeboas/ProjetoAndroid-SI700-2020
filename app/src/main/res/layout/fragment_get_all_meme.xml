@@ -1,22 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".memegetall.GetAllMemeFragment"
     android:background="@color/colorPrimary"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".memegetall.GetAllMemeFragment">
+
+    <!--<EditText
+        android:id="@+id/search_field"
+        android:textColor="@color/colorHolder"
+        android:backgroundTint="@color/colorHolder"
+        android:layout_margin="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>-->
 
     <ProgressBar
         android:id="@+id/progress_circle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"/>
-    
+        android:layout_centerInParent="true" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/get_all_meme_recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content" />
+    <!--android:layout_below="@id/search_field"-->
 
 </RelativeLayout>

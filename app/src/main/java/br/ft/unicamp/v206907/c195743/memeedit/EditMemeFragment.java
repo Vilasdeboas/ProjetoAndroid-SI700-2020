@@ -38,6 +38,7 @@ import com.squareup.picasso.Picasso;
 
 import br.ft.unicamp.v206907.c195743.projetoandroid.R;
 import br.ft.unicamp.v206907.c195743.services.Payload;
+import br.ft.unicamp.v206907.c195743.services.SignInActivity;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -79,6 +80,13 @@ public class EditMemeFragment extends Fragment {
             lview = inflater.inflate(R.layout.fragment_edit_meme, container, false);
         }
 
+        mFirebaseAuth = FirebaseAuth.getInstance();
+        mFirebaseUser = mFirebaseAuth.getCurrentUser();
+
+        if (mFirebaseUser == null) {
+            startActivity(new Intent(getContext(), SignInActivity.class));
+        }
+
         initialize();
 
         if (mKey != null && !mKey.equals("")) {
@@ -90,12 +98,18 @@ public class EditMemeFragment extends Fragment {
         update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (selected_meme_uri == null) {
-                    updateInfo(name.getText().toString(), description.getText().toString(),
-                            tag.getText().toString(), mUri, extension);
+                String name_text = name.getText().toString().trim();
+                String tag_text = tag.getText().toString().trim();
+                String description_text = description.getText().toString().trim();
+                if (name_text.equals("") || tag_text.equals("")) {
+                    Toast.makeText(getContext(), "Nome e tag não podem ser vazios", Toast.LENGTH_SHORT).show();
                 } else {
-                    updateInfo(name.getText().toString(), description.getText().toString(),
-                            tag.getText().toString(), mUri, getFileExtension(selected_meme_uri));
+                    if (selected_meme_uri == null) {
+                        updateInfo(name.getText().toString(), description.getText().toString(), tag.getText().toString(), mUri, extension);
+                    } else {
+                        updateInfo(name_text, description_text,
+                                tag_text, mUri, getFileExtension(selected_meme_uri));
+                    }
                 }
             }
         });
@@ -172,7 +186,7 @@ public class EditMemeFragment extends Fragment {
     }
 
     private void insertNewImage(String filename, final Payload payload) {
-        final StorageReference fileReference = mStorageReference.child("uploads"+"/"+mFirebaseUser.getUid()).child(filename);
+        final StorageReference fileReference = mStorageReference.child("uploads" + "/" + mFirebaseUser.getUid()).child(filename);
         uploadTask = fileReference.putFile(selected_meme_uri);
         uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
@@ -211,11 +225,9 @@ public class EditMemeFragment extends Fragment {
     }
 
     private void initialize() {
-        mFirebaseAuth = FirebaseAuth.getInstance();
-        mFirebaseUser = mFirebaseAuth.getCurrentUser();
         mKey = getArguments().getString("key");
-        dbRef = FirebaseDatabase.getInstance().getReference(BASE_URL+"/"+mFirebaseUser.getUid());
-        mStorageReference = FirebaseStorage.getInstance().getReference(BASE_URL+"/"+mFirebaseUser.getUid());
+        dbRef = FirebaseDatabase.getInstance().getReference(BASE_URL + "/" + mFirebaseUser.getUid());
+        mStorageReference = FirebaseStorage.getInstance().getReference(BASE_URL + "/" + mFirebaseUser.getUid());
         mFirebaseStorage = FirebaseStorage.getInstance();
         selected_meme_text = lview.findViewById(R.id.selected_meme_text);
         name = lview.findViewById(R.id.name);
