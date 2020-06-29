@@ -15,10 +15,14 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -203,19 +207,34 @@ public class GetAllMemeFragment extends Fragment implements AllMemesAdapter.OnIt
     public void onDeleteClick(int position) {
         Payload selectedItem = mPayloads.get(position);
         final String selectedItemKey = selectedItem.getKey();
-        StorageReference imageRef = mStorage.getReferenceFromUrl(selectedItem.getUri());
-        imageRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void aVoid) {
-                mDatabaseRef.child(selectedItemKey).removeValue();
-                Toast.makeText(getContext(), "Item deletado", Toast.LENGTH_SHORT).show();
+        try {
+
+            StorageReference imageRef = mStorage.getReferenceFromUrl(selectedItem.getUri());
+            imageRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void aVoid) {
+                    mDatabaseRef.child(selectedItemKey).removeValue();
+                    Toast.makeText(getContext(), "Item deletado", Toast.LENGTH_SHORT).show();
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(getContext(), "Não foi possível apagar", Toast.LENGTH_SHORT).show();
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(getContext(), "Algum erro ocorreu!" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (e.getMessage() != null) {
+                Log.i("delete-err", "Err.: "+e.getMessage());
+            }else{
+                Log.i("deleter-err", "Err.: (null error message)");
             }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(getContext(), "Não foi possível apagar", Toast.LENGTH_SHORT).show();
-            }
-        });
+        }
     }
 
 

@@ -20,7 +20,7 @@ import java.util.List;
 import br.ft.unicamp.v206907.c195743.projetoandroid.R;
 import br.ft.unicamp.v206907.c195743.projetoandroid.services.Payload;
 
-public class AllMemesAdapter extends RecyclerView.Adapter {
+public class AllMemesAdapter extends RecyclerView.Adapter{
 
     private Context mContext;
     private List<Payload> mPayloads;
@@ -29,7 +29,6 @@ public class AllMemesAdapter extends RecyclerView.Adapter {
     public AllMemesAdapter(Context context, List<Payload> payloads) {
         this.mContext = context;
         this.mPayloads = payloads;
-        notifyDataSetChanged();
     }
 
     @NonNull
