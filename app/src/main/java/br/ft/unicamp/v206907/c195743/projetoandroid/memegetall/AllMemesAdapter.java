@@ -116,7 +116,8 @@ public class AllMemesAdapter extends RecyclerView.Adapter{
         }
 
         void bind(Payload payload) {
-            this.name.setText(payload.getName());
+            String name_and_extensions = itemView.getResources().getString(R.string.name_and_extension, payload.getName(), payload.getExtension());
+            this.name.setText(name_and_extensions);
             this.description.setText(payload.getDescription());
             String hashtag = itemView.getResources().getString(R.string.hashtag, payload.getTag());
             this.tag.setText(hashtag);
